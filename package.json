@@ -1,0 +1,23 @@
+{
+  "name": "games-api-targv21",
+  "version": "1.0.0",
+  "description": "This is a school project for Distributed software development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kivikangur-tthk/games-api-TARgv21.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kivikangur-tthk/games-api-TARgv21/issues"
+  },
+  "homepage": "https://github.com/kivikangur-tthk/games-api-TARgv21#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
