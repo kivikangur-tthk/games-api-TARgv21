@@ -23,7 +23,20 @@ app.get("/customers",async (req,res)=>{
         res.send(JSON.stringify(rows))
     } catch (error) {
         console.log(error)       
-    } finally{
+    } finally {
+        conn.end()
+    }
+})
+
+app.get("/games",async (req,res)=>{
+    let conn
+    try {
+        conn = await pool.getConnection()
+        const rows = await conn.query("SELECT id, name FROM games")
+        res.send(JSON.stringify(rows))
+    } catch (error) {
+        console.log(error)
+    } finally {
         conn.end()
     }
 })
