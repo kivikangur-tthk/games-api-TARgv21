@@ -7,13 +7,8 @@ const swaggerUi = require("swagger-ui-express")
 const swaggerDocument = require("./docs/swagger.json")
 app.use("/docs", swaggerUi.serve,swaggerUi.setup(swaggerDocument))
 
-const pool = mariadb.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_BASE,
-    connectionLimit: 5
-})
+require("./routes/app_routes")(app)
+
 
 app.get("/customers",async (req,res)=>{
     let conn
@@ -28,18 +23,6 @@ app.get("/customers",async (req,res)=>{
     }
 })
 
-app.get("/games",async (req,res)=>{
-    let conn
-    try {
-        conn = await pool.getConnection()
-        const rows = await conn.query("SELECT id, name FROM games")
-        res.send(JSON.stringify(rows))
-    } catch (error) {
-        console.log(error)
-    } finally {
-        conn.end()
-    }
-})
 
 app.listen(port,()=>{
     console.log(`API up at: http://localhost:${port}`)
