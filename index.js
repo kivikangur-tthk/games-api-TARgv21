@@ -24,6 +24,7 @@ app.get("/customers",async (req,res)=>{
 })
 
 
-app.listen(port,()=>{
+app.listen(port, async ()=>{
+    await require("./db").Sync()
     console.log(`API up at: http://localhost:${port}`)
 })

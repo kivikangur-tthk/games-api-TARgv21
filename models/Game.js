@@ -6,7 +6,14 @@ module.exports = (sequelize,Sequelize) => {
             autoIncrement: true
         },
         name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        studio: {
             type: Sequelize.STRING
+        },
+        release: {
+            type: Sequelize.DATEONLY
         }
     })
 

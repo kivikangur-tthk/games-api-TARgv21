@@ -1,22 +1,31 @@
-require("dotenv").config()
+require("dotenv").config();
 
-const Sequelize = require("sequelize")
-const sequelize = new Sequelize(process.env.DB_BASE,process.env.DB_USER,process.env.DB_PASS, {
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(
+  process.env.DB_BASE,
+  process.env.DB_USER,
+  process.env.DB_PASS,
+  {
     host: process.env.DB_HOST,
     dialect: "mariadb",
     define: {
-        timestamps: false
-    }
-})
+      timestamps: false,
+    },
+  }
+);
 
-const db = {}
+const db = {};
 
-db.Sequelize = Sequelize
-db.sequelize = sequelize
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-db.games = require("./models/Game")(sequelize,Sequelize)
+db.games = require("./models/Game")(sequelize, Sequelize);
 
-//await sequelize.sync({force:true}) // Erase all and recreate
-async () => await sequelize.sync({alter:true}) // Alter existing tables to match the model
+async function Sync() {
+  console.log("Begin Sync");
+  //await sequelize.sync({force:true}) // Erase all and recreate
+  await sequelize.sync({ alter: true }); // Alter existing tables to match the model
+  console.log("Sync Done");
+}
 
-module.exports = db
+module.exports = { db, Sync };
