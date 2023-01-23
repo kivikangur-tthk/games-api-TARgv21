@@ -1,6 +1,6 @@
-require("dotenv").config();
+require("dotenv").config()
 
-const Sequelize = require("sequelize");
+const Sequelize = require("sequelize")
 const sequelize = new Sequelize(
   process.env.DB_BASE,
   process.env.DB_USER,
@@ -12,20 +12,19 @@ const sequelize = new Sequelize(
       timestamps: false,
     },
   }
-);
+)
 
-const db = {};
+const db = {}
 
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+db.Sequelize = Sequelize
+db.sequelize = sequelize
 
-db.games = require("./models/Game")(sequelize, Sequelize);
+db.games = require("./models/Game.model")(sequelize, Sequelize)
+db.players = require("./models/Player.model")(sequelize, Sequelize)
 
 async function Sync() {
-  console.log("Begin Sync");
   //await sequelize.sync({force:true}) // Erase all and recreate
-  await sequelize.sync({ alter: true }); // Alter existing tables to match the model
-  console.log("Sync Done");
+  await sequelize.sync({ alter: true }) // Alter existing tables to match the model
 }
 
-module.exports = { db, Sync };
+module.exports = { db, Sync }
