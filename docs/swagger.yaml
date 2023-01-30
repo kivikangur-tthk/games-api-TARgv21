@@ -1,0 +1,156 @@
+openapi: 3.0.2
+info:
+    title: TARgv21 Games-API
+    version: 1.0.0
+    description: '### This is a Swagger UI for our Games API'
+paths:
+    /games:
+        get:
+            tags:
+                - Games
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                List of games:
+                                    value:
+                                        -
+                                            id: 1
+                                            name: Witcher 3
+                                        -
+                                            id: 2
+                                            name: Minecraft
+                                        -
+                                            id: 3
+                                            name: Disco Elysium
+                    description: |
+                        Returns a list of games
+            summary: Get a list of all games
+            description: Returns a list of all games in API
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Game'
+                required: true
+            tags:
+                - Games
+            responses:
+                '201':
+                    headers:
+                        location:
+                            schema:
+                                type: string
+                            examples:
+                                Location of created game:
+                                    value: 'https://server:port/games/{id}'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Game'
+                    description: Game was added
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Invalid data:
+                                    value:
+                                        error: 'Invalid input, missing required parameters'
+                    description: Invalid data supplied
+            summary: Add new game
+            description: |
+                Add new game with all the details
+    '/games/{id}':
+        summary: Get game Details
+        description: Get all the details of a game with the given id
+        get:
+            tags:
+                - Games
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Full details of a game:
+                                    value:
+                                        id: 1
+                                        name: Disco Elysium
+                                        description: Adventure detective game
+                                        genre: Adventure
+                                        studio: Rockstars
+                                        release: 22-02-2012
+                    description: Game was found and the details are returned
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Game not found:
+                                    value:
+                                        error: Game with the given id was not found.
+                    description: Game with the given ID does not exist
+            summary: Get details of the game with given ID
+            description: |
+                Return all the details of the game
+        parameters:
+            -
+                name: id
+                description: Id of the Game to get the details
+                schema:
+                    type: integer
+                in: path
+                required: true
+components:
+    schemas:
+        error:
+            title: Root Type for error
+            description: ''
+            type: object
+            properties:
+                error:
+                    type: string
+            example:
+                error: Error message.
+        Game:
+            title: Root Type for Game
+            description: Game details
+            required:
+                - release
+                - name
+                - genre
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                name:
+                    type: string
+                description:
+                    type: string
+                genre:
+                    type: string
+                studio:
+                    type: string
+                release:
+                    format: date
+                    type: string
+            example:
+                id: 1
+                name: Minecraft
+                description: 'Mining simulator :)'
+                genre: Simulator
+                studio: Mojang
+                release: 31-01-2015
