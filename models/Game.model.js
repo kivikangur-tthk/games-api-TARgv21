@@ -9,6 +9,13 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
+        description:{
+            type: Sequelize.STRING(4096)
+        },
+        genre:{
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         studio: {
             type: Sequelize.STRING
         },
