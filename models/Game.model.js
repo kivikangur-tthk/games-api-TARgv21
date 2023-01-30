@@ -1,5 +1,5 @@
 module.exports = (sequelize,Sequelize) => {
-    const Game = sequelize.define("game", {
+    const Game = sequelize.define("Game", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -16,6 +16,5 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.DATEONLY
         }
     })
-
     return Game
 }

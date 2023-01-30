@@ -1,5 +1,5 @@
 module.exports = (sequelize,Sequelize) => {
-    const Player = sequelize.define("player", {
+    const Player = sequelize.define("Player", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -13,6 +13,5 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.STRING
         }
     })
-
     return Player
 }
