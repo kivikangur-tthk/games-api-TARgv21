@@ -36,7 +36,25 @@ exports.getById = async (req,res)=>{
     }
 }
 exports.updateById = async (req,res)=>{    
-    res.send({"message":"Not ipmlemented yet"})
+    let game = await Game.findByPk(req.params.id, {logging: console.log})
+    if (game === null){
+        res.status(404).send({"error":"Game not found"})
+        return
+    } 
+    try {
+        game = await game.update(req.body, {logging: console.log})
+    } catch (error) {
+        if (error instanceof db.Sequelize.ValidationError) {
+            res.status(400).send({"error":error.errors.map((item)=> item.message)})  
+        } else {
+            console.log("GamesUpdate:",error)
+            res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        }
+        return
+    }
+    res.status(200)
+        .location(`${getBaseUrl(req)}/games/${game.id}`)
+        .json(game)
 }
 exports.deleteById = async (req,res)=>{    
     res.send({"message":"Not ipmlemented yet"})

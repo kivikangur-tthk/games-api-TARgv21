@@ -105,6 +105,53 @@ paths:
             summary: Get details of the game with given ID
             description: |
                 Return all the details of the game
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Game'
+                required: true
+            tags:
+                - Games
+            responses:
+                '200':
+                    headers:
+                        location:
+                            schema:
+                                type: string
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Game'
+                    description: |
+                        Game was updated
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Missing required fields
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Game not found
+            summary: Update Game
+        delete:
+            tags:
+                - Games
+            responses:
+                '204':
+                    description: Game deleted
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Game not found
+            summary: Remove game
         parameters:
             -
                 name: id
