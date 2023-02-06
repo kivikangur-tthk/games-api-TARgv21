@@ -18,9 +18,18 @@ module.exports = (sequelize,Sequelize,Game,Player) => {
                 model: Player,
                 key: "id"
             }
+        },
+        PlayTimeMinutes: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            allowNull: false,
+            defaultValue: 1
         }
     })
     Game.belongsToMany(Player, { through: GamePlay})
     Player.belongsToMany(Game, { through: GamePlay})
+    Game.hasMany(GamePlay)
+    GamePlay.belongsTo(Game)
+    Player.hasMany(GamePlay)
+    GamePlay.belongsTo(Player)
     return GamePlay
 }
