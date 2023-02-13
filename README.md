@@ -14,4 +14,4 @@ Games-api is an application that stores data about videogames (Name, Created, St
 2. in the cloned folder rename .env.example to .env
 3. update the fields in .env (DB_USER, DB_HOST, ...)
 4. run command: `npm i`
-5. run command: `node .`
+5. run command: `npm start`
