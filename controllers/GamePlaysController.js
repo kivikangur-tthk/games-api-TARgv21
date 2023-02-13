@@ -12,17 +12,9 @@ exports.getAll = async (req,res)=>{
                  INNER JOIN Players AS p on p.id = gp.PlayerId 
                  GROUP BY gp.GameId, gp.PlayerId;`
     const sqlResult = await db.sequelize.query(sql,{type: QueryTypes.SELECT })
-    // const gamePlays = await GamePlays.findAll({
-    //     include: { all: true },
-    //     logging: console.log
-    // })
-    // let result = []
-    // result = gamePlays.map( (gp) => { 
-    //     return {
-    //         "gameName":gp.Game.name,
-    //         "playerName": `${gp.Player.firstName} ${gp.Player.lastName}`,
-    //         "playtime":gp.PlayTimeMinutes
-    //     }
-    // })
+    if (sqlResult.length === 0) {
+        res.send({"error":"No gameplays stored."})
+        return
+    }
     res.send(sqlResult)
 }
