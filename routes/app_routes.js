@@ -21,4 +21,5 @@ module.exports = (app) => {
     
     app.route("/gameplays")
         .get(gamePlaysController.getAll)
+        .post(gamePlaysController.createNew)    //Create
 }
