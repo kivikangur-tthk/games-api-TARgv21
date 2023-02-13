@@ -3,10 +3,12 @@ module.exports = (sequelize,Sequelize,Game,Player) => {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
+            allowNull: false,
             autoIncrement: true
         },
         GameId: {
             type: Sequelize.INTEGER,
+            allowNull: false,
             references:{
                 model: Game,
                 key: "id"
@@ -14,6 +16,7 @@ module.exports = (sequelize,Sequelize,Game,Player) => {
         },
         PlayerId: {
             type: Sequelize.INTEGER,
+            allowNull: false,
             references:{
                 model: Player,
                 key: "id"
