@@ -1,5 +1,6 @@
 const { db } = require("../db")
 const Players = db.players
+const Games = db.games
 const GamePlays = db.gamePlays
 
 exports.getAll = async (req,res)=>{
@@ -16,7 +17,14 @@ exports.createNew = async (req,res)=>{
 exports.getById = async (req, res) => {
   const player = await Players.findByPk(req.params.id, {
     logging: console.log,
-    include: GamePlays,
+    include: {
+      model: GamePlays,
+      attributes: ["id","PlayTimeMinutes"],
+      include: {
+        model: Games,
+        attributes: ["id","name"]
+      }
+    },
     order: [[GamePlays,"GameId","DESC"]]
   })
   if (player === null) {
