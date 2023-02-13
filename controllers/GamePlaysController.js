@@ -46,3 +46,18 @@ exports.createNew = async (req, res) => {
         .json(gamePlay)
 
 }
+exports.deleteById = async (req,res) => {
+    const gamePlay = await GamePlays.findByPk(req.params.id)
+    if (gamePlay === null){
+        res.status(404).send({"error":"GamePlay not found"})
+        return
+    }
+    try {
+        const deleted = await gamePlay.destroy()
+    } catch (error) {
+        console.log("GamePlaysDelete:",error)
+        res.status(500).send({"error":"Something went wrong on our side. Sorry :("})
+        return        
+    }
+    res.status(204).send()
+}
